@@ -4,7 +4,8 @@ enum layer_number {
   _QWERTY = 0,
   _LOWER,
   _RAISE,
-  _ADJUST,
+  _SYMBOLS,
+  _STUFF,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -29,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_PIPE, \
   KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LCTRL, KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_WBAK,  KC_WFWD,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT, \
-                    KC_LALT, KC_LGUI, MO(_LOWER), MO(_RAISE),  KC_SPC, MO(_ADJUST), KC_BSPC, KC_RGUI \
+  KC_LALT, KC_LGUI, MO(_LOWER), MO(_RAISE),                              KC_SPC,  MO(_SYMBOLS), KC_BSPC, KC_RGUI \
 ),
 /* LOWER
  * ,-----------------------------------------.                    ,-----------------------------------------.
@@ -38,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |                    |  F7  |  F8  |  UP  | F10  | F11  | F12  |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |   `  |   !  |   @  |   #  |   $  |   %  |-------.    ,-------|   ^  | LEFT | DOWN | RIGHT|   )  |   -  |
- * |------+------+------+------+------+------|   w<- |    |  ->w  |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|  PUp  |    | PDown |------+------+------+------+------+------|
  * |      |      |      |      |      |      |-------|    |-------|      |   _  |   +  |   {  |   }  |   |  |
  * `-----------------------------------------/       /     \      \-----------------------------------------'
  *                   | LAlt | LGUI |LOWER | /Raise  /       \Space \  |RAISE |BackSP| RGUI |
@@ -48,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT( \
   KC_GRV,  _______, _______, _______, _______, _______,                   _______,  _______, _______,_______,  _______, KC_DEL,\
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, KC_UP,   XXXXXXX,  XXXXXXX, XXXXXXX, \
-  KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                   KC_CIRC, KC_LEFT, KC_DOWN, KC_RIGHT, KC_RPRN, KC_TILD, \
+  KC_GRV,  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PGUP,                   KC_PGDN, KC_LEFT, KC_DOWN, KC_RIGHT, KC_RPRN, KC_TILD, \
   _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX, KC_UNDS, KC_PLUS, KC_LCBR,  KC_RCBR, KC_PIPE, \
                              _______, _______, _______, _______, _______, _______, _______, _______\
 ),
@@ -56,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
- * |   `  |   1  |   2  |   3  |   4  |   5  |                    |      |   7  |   8  |   9  |   0  |      |
+ * |   `  |   1  |   2  |   3  |   4  |   5  |                    |   =  |   7  |   8  |   9  |   0  |      |
  * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |-------.    ,-------|   -  |   4  |   5  |   6  |      |      |
  * |------+------+------+------+------+------|   w<- |    |  ->w  |------+------+------+------+------+------|
@@ -69,11 +70,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_RAISE] = LAYOUT( \
   _______, _______, _______, _______, _______, _______,                     _______, _______, _______, _______, _______, _______, \
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        XXXXXXX, KC_7,    KC_8,    KC_9,    KC_0,    _______, \
+  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                        KC_PEQL, KC_7,    KC_8,    KC_9,    KC_0,    _______, \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                       KC_MINUS, KC_4,    KC_5,    KC_6,    XXXXXXX, XXXXXXX, \
   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,   _______, _______,  KC_PLUS, KC_1,    KC_2,    KC_3,    XXXXXXX, XXXXXXX, \
                              _______, _______, _______,  _______, _______,  _______, _______, _______ \
 ),
+ /* SYMBOLS
+ * ,-----------------------------------------.                    ,-----------------------------------------.
+ * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |  &   |  *   |      |  {   |  }   |                    |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|                    |------+------+------+------+------+------|
+ * |      |  $   |  %   |  ^   |  [   |  ]   |-------.    ,-------|      |      |RGB ON| HUE+ | SAT+ | VAL+ |
+ * |------+------+------+------+------+------|  w<-  |    | ->w   |------+------+------+------+------+------|
+ * |      |  !   |  @   |  #   |  (   |  )   |-------|    |-------|      |      | MODE | HUE- | SAT- | VAL- |
+ * `-----------------------------------------/       /     \      \-----------------------------------------'
+ *                   | LAlt | LGUI |LOWER | /Raise  /       \Space \  |RAISE |BackSP| RGUI |
+ *                   |      |      |      |/       /         \      \ |      |      |      |
+ *                   `----------------------------'           '------''--------------------'
+ */
+  [_SYMBOLS] = LAYOUT( \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, KC_AMPR, KC_ASTR, XXXXXXX, KC_LCBR, KC_RCBR,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, KC_DLR,  KC_PERC, KC_CIRC, KC_LPRN, KC_RPRN,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, KC_EXLM, KC_AT,   KC_HASH, KC_LBRC, KC_RBRC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+                             _______, _______, _______, _______, _______,  _______, _______, _______ \
+ ),
 /* ADJUST
  * ,-----------------------------------------.                    ,-----------------------------------------.
  * |      |      |      |      |      |      |                    |      |      |      |      |      |      |
@@ -88,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   |      |      |      |/       /         \      \ |      |      |      |
  *                   `----------------------------'           '------''--------------------'
  */
-  [_ADJUST] = LAYOUT( \
+  [_STUFF] = LAYOUT( \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, KC_AMPR, KC_ASTR, XXXXXXX, KC_LCBR, KC_RCBR,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, KC_DLR,  KC_PERC, KC_CIRC, KC_LPRN, KC_RPRN,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
@@ -98,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  return update_tri_layer_state(state, _LOWER, _RAISE, _STUFF);
 }
 
 //SSD1306 OLED update loop, make sure to enable OLED_DRIVER_ENABLE=yes in rules.mk
