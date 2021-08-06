@@ -8,9 +8,9 @@ CONSOLE_ENABLE          = no
 COMMAND_ENABLE          = no
 
 RGBLIGHT_ENABLE         = no
-RGB_MATRIX_ENABLE       = yes
+RGB_MATRIX_ENABLE       = no
 
-OLED_DRIVER_ENABLE      = yes
+OLED_DRIVER_ENABLE      = no
 
 BOOTLOADER              = atmel-dfu
 SPLIT_TRANSPORT         = mirror
